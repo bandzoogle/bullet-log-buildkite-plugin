@@ -1,0 +1,19 @@
+version: '2'
+services:
+  plugin:
+    image: buildkite/plugin-tester:latest@sha256:476a1024936901889147f53d2a3d8e71e99d76404972d583825514f5608083dc
+    volumes:
+      - ".:/plugin"
+    depends_on:
+      - ruby
+  ruby:
+    image: ruby:2.7-alpine@sha256:7524541d03ceacaccc8da4721681de0e246c2c3cc63b362e00785657cafebeb1
+    command: rake
+    working_dir: /src
+    volumes:
+      - "./ruby:/src"
+  lint:
+    image: buildkite/plugin-linter
+    command: ['--id', 'bandzoogle/bullet-report']
+    volumes:
+      - ".:/plugin:ro"

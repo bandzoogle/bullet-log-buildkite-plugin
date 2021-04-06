@@ -1,0 +1,10 @@
+---
+name: Bullet Report
+description: Generate a report of N+1 queries via bullet logs
+author: https://github.com/bandzoogle
+requirements: []
+configuration:
+  properties:
+    pattern:
+      type: string
+  additionalProperties: false
