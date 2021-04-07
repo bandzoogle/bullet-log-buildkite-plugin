@@ -25,7 +25,7 @@ steps:
 
 ### `artifacts` (required)
 
-The artifact glob path to find the bullet lot files.
+The artifact glob path to find the bullet log files.
 
 Example: `log/bullet.log`
 

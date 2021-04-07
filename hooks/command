@@ -1,0 +1,39 @@
+#!/bin/bash
+
+set -euo pipefail
+
+PLUGIN_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)/.."
+
+echo "--- :bullet: Download bullet logs"
+
+artifacts_dir="$(pwd)/$(mktemp -d "bullet-report-artifacts-tmp.XXXXXXXXXX")"
+annotation_dir="$(pwd)/$(mktemp -d "bullet-report-tmp.XXXXXXXXXX")"
+fail_build=0
+
+function cleanup {
+  rm -rf "${artifacts_dir}"
+  rm -rf "${annotation_dir}"
+}
+
+
+trap cleanup EXIT
+
+buildkite-agent artifact download \
+  "${BUILDKITE_PLUGIN_BULLET_REPORT_ARTIFACTS}" \
+  "$artifacts_dir"
+
+echo "--- :bullet: Processing bullet logs"
+
+set +e
+cat "$artifacts_dir/*" | docker run -i --rm bullet-report > bullet-report.txt
+#      > "$annotation_path"
+
+set -e
+
+
+if ((fail_build)); then
+  echo "--- :boom: Failing build due to error"
+  exit 1
+else
+  exit 0
+fi
