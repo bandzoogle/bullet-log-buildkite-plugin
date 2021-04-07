@@ -2,9 +2,14 @@
 name: Bullet Report
 description: Generate a report of N+1 queries via bullet logs
 author: https://github.com/bandzoogle
-requirements: []
+requirements:
+  - docker
 configuration:
   properties:
     pattern:
       type: string
+    context:
+      type: string
+  required:
+    - artifacts
   additionalProperties: false
