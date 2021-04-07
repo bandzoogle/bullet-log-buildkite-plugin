@@ -22,7 +22,8 @@ function cleanup {
 trap cleanup EXIT
 
 buildkite-agent artifact download \
-  "${BUILDKITE_PLUGIN_BULLET_REPORT_PATTERN}" \
+  "log/bullet.log" \
+  # "${BUILDKITE_PLUGIN_BULLET_REPORT_PATTERN}" \
   "$artifacts_dir"
 
 echo "--- :bullet: Processing bullet logs"

@@ -11,5 +11,5 @@ configuration:
     context:
       type: string
   required:
-    - artifacts
+    - pattern
   additionalProperties: false
