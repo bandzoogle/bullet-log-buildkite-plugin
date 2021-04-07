@@ -23,19 +23,19 @@ trap cleanup EXIT
 
 buildkite-agent artifact download \
   "log/bullet.log" \
+  "${artifacts_dir}"
   # "${BUILDKITE_PLUGIN_BULLET_REPORT_PATTERN}" \
-  "$artifacts_dir"
 
 echo "--- :bullet: Processing bullet logs"
 
 set +e
-cat "$artifacts_dir/*" | docker run -i --rm bandzoogle/bullet-report > bullet-report.txt
+cat "${artifacts_dir}/*" | docker run -i --rm bandzoogle/bullet-report > bullet-report.txt
 
 set -e
 
-cat "$annotation_path"
+cat "${annotation_path}"
 
 echo "--- :buildkite: Creating annotation"
 # shellcheck disable=SC2002
-cat "$annotation_path" | buildkite-agent annotate --context "${BUILDKITE_PLUGIN_BULLET_REPORT_ANNOTATE_CONTEXT:-bullet}" --style "$annotation_style"
+cat "${annotation_path}" | buildkite-agent annotate --context "${BUILDKITE_PLUGIN_BULLET_REPORT_ANNOTATE_CONTEXT:-bullet}" --style "$annotation_style"
 
