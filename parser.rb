@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 # frozen_string_literal: true
 require 'digest'
 require 'json'
@@ -7,7 +8,8 @@ require 'bullet_log_parser'
 stacks = {}
 
 BulletLogParser.parse($stdin) do |ast|
-  key = Digest::MD5.hexdigest(ast[:stack].to_json)
+  # use the top line of the stack as the key
+  key = Digest::MD5.hexdigest(ast[:stack].first.to_json)
 
   stacks[key] ||= ast
   stacks[key][:count] ||= 0
