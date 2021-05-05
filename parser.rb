@@ -26,4 +26,4 @@ output = stacks.sort_by { |k, v| -v[:count] }.map do |key, result|
   "<details><summary><code>#{title} - #{detection}</code></summary><pre><code>#{request}\n\n#{stack}</code></pre></details>"
 end.join("\n\n")
 
-puts output
+puts "N+1 Queries:\n\n#{output}
