@@ -23,7 +23,7 @@ output = stacks.sort_by { |k, v| -v[:count] }.map do |key, result|
   request = result[:request]
   stack = result[:stack].map { |s| "#{s[:filename]}:#{s[:lineno]} #{s[:message]}"}.join("\n")
 
-  [title, detection, request, "", stack, ""].join("\n")
+  "<details><summary><code>#{title} - #{detection}</code></summary><pre><code>#{request}\n\n#{stack}</code></pre></details>"
 end.join("\n\n")
 
 puts output
