@@ -29,7 +29,7 @@ buildkite-agent artifact download \
 echo "--- Processing bullet logs"
 
 set +e
-cat ${artifacts_dir}/* | docker run -i --rm bandzoogle/bullet-report > ${annotation_path}
+cat ${artifacts_dir}/log/* | docker run -i --rm bandzoogle/bullet-report > ${annotation_path}
 
 set -e
 
